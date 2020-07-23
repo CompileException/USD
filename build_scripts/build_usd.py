@@ -217,13 +217,17 @@ def GetPythonInfo():
         pythonLibPath = os.path.join(pythonBaseDir, "lib",
                                      _GetPythonLibraryFilename())
     else:
-        pythonIncludeDir = sysconfig.get_config_var("INCLUDEPY")
+        pythonIncludeDir = sysconfig.get_paths()['include']
+        if not os.path.exists(pythonIncludeDir):
+            pythonIncludeDir = sysconfig.get_config_var("INCLUDEPY")
         if Windows():
             pythonBaseDir = sysconfig.get_config_var("base")
             pythonLibPath = os.path.join(pythonBaseDir, "libs",
                                          _GetPythonLibraryFilename())
         elif Linux():
-            pythonLibDir = sysconfig.get_config_var("LIBDIR")
+            pythonLibDir = os.path.join(sysconfig.get_paths()["platstdlib"], "..")
+            if not os.path.exists(pythonLibDir):
+                pythonLibDir = sysconfig.get_config_var("LIBDIR")
             pythonMultiarchSubdir = sysconfig.get_config_var("multiarchsubdir")
             if pythonMultiarchSubdir:
                 pythonLibDir = pythonLibDir + pythonMultiarchSubdir
