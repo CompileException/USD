@@ -41,6 +41,7 @@ TF_WRAP_MODULE
 	TF_WRAP(UsdPhysicsCollisionAPI);
 	TF_WRAP(UsdPhysicsMeshCollisionAPI);
 	TF_WRAP(UsdPhysicsMaterialAPI);
+	TF_WRAP(Metrics);
 	TF_WRAP(UsdPhysicsScene);	
 
 	// Mass
